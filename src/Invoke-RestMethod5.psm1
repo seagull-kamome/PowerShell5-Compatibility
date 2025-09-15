@@ -42,6 +42,68 @@ Not Supported:
 Author: Microsoft Copilot
 Compatibility: Windows PowerShell 5.1
 Limitations: Some advanced PowerShell 7 features may not be fully reproducible due to .NET Framework constraints.
+
+.EXAMPLE
+# Example 1: Basic GET request with default settings
+
+$result = Invoke-RestMethod5 -Uri "https://jsonplaceholder.typicode.com/posts/1"
+$result | Format-List
+
+.EXAMPLE
+# Example 2: POST request with JSON body and custom headers
+
+$responseHeaders = $null
+$result = Invoke-RestMethod5 -Uri "https://jsonplaceholder.typicode.com/posts" `
+    -Method POST `
+    -Body @{title="test"; body="hello"; userId=99} `
+    -Headers @{Authorization="Bearer dummy"} `
+    -ContentType "application/json" `
+    -UserAgent "CopilotTest/1.0" `
+    -TimeoutSec 30 `
+    -IgnoreCertificateError `
+    -ResponseHeadersVariable ([ref]$responseHeaders)
+
+$result | Format-List
+$responseHeaders | Format-List
+
+.EXAMPLE
+# Example 3: Form data submission using application/x-www-form-urlencoded
+
+$formData = "name=弘起&game=Factorio"
+$result = Invoke-RestMethod5 -Uri "https://httpbin.org/post" `
+    -Method POST `
+    -Form $formData `
+    -ContentType "application/x-www-form-urlencoded"
+
+$result | Format-List
+
+.EXAMPLE
+# Example 4: Using a proxy with credentials
+
+$proxyCred = Get-Credential
+$result = Invoke-RestMethod5 -Uri "https://jsonplaceholder.typicode.com/posts/1" `
+    -Proxy "http://proxy.example.com:8080" `
+    -ProxyCredential $proxyCred
+
+$result | Format-List
+
+.EXAMPLE
+# Example 5: Using a client certificate by thumbprint
+
+$result = Invoke-RestMethod5 -Uri "https://secure.example.com/api" `
+    -CertificateThumbprint "ABCD1234EF567890ABCD1234EF567890ABCD1234"
+
+$result | Format-List
+
+.EXAMPLE
+# Example 6: GET request with response headers captured
+
+$responseHeaders = $null
+$result = Invoke-RestMethod5 -Uri "https://jsonplaceholder.typicode.com/posts/1" `
+    -ResponseHeadersVariable ([ref]$responseHeaders)
+
+$result | Format-List
+$responseHeaders | Format-List
 #>
 function Invoke-RestMethod5 {
     param (
@@ -172,3 +234,5 @@ function Invoke-RestMethod5 {
         }
     }
 }
+#
+Export-ModuleMember -Function Invoke-RestMethod5
