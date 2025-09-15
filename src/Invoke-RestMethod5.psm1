@@ -1,3 +1,6 @@
+# Copyright (c) Hattori, Hiroki
+# Distributed under the BSD 2-Clause License (Simplified BSD License)
+# Portions of this code were generated with assistance from Microsoft Copilot
 <#
 .SYNOPSIS
 PowerShell 5-compatible wrapper for Invoke-RestMethod with extended support for PowerShell 7 features.
