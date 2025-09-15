@@ -10,7 +10,7 @@
     この関数は、PowerShell 5.1 の ConvertTo-Csv をラップし、PowerShell 7で利用可能な機能を提供します。
     このバージョンでは、すべての引用モードを手動で処理することで、特に'Always'モードでの改行文字の扱いに関して、PowerShell 7の挙動との完全な互換性を確保します。
 #>
-function ConvertTo-Csv7 {
+function ConvertTo-Csv5 {
     [CmdletBinding(DefaultParameterSetName = 'Delimiter')]
     [OutputType([string])]
     param(
